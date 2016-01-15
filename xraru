@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# This has serious limitations. Beware!
+
+cleanup() {
+	kill -9 $VNCVIEWERPID
+	kill -9 $XVNCPID
+}
+
+trap cleanup SIGHUP SIGINT SIGTERM
+
+# Very roughly X + Y in 50,000 chance of collisions, where X is number of
+# xraru's, and Y is number of outbound TCP connections.
+DISP=$(($(date +%s) % 50000))
+
+env -i PATH=$PATH raru Xvnc -nolisten tcp -geometry 800x600 -depth 24 -nevershared -dontdisconnect -deferupdate 15 -once -interface 127.0.0.1 -localhost :$DISP &
+XVNCPID=$$
+
+vncviewer 127.0.0.1::$((5900 + DISP)) &
+VNCVIEWERPID=$$
+
+# RARUHOME for safety around developing and accidental copy/paste.
+env -i PATH=$PATH DISPLAY=:$DISP raru /bin/sh -c 'RARUHOME=$(mktemp -d -t xraru); export HOME=$RARUHOME; '$*'; rm -rf $RARUHOME'
+
+cleanup
