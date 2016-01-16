@@ -16,10 +16,13 @@ DISP=$(($(date +%s) % 50000))
 env -i PATH=$PATH raru Xvnc -nolisten tcp -geometry 800x600 -depth 24 -nevershared -dontdisconnect -deferupdate 15 -once -interface 127.0.0.1 -localhost :$DISP &
 XVNCPID=$$
 
+sleep 0.1 # Hack to wait for Xvnc
+
 vncviewer 127.0.0.1::$((5900 + DISP)) &
 VNCVIEWERPID=$$
 
 # RARUHOME for safety around developing and accidental copy/paste.
-env -i PATH=$PATH DISPLAY=:$DISP raru /bin/sh -c 'RARUHOME=$(mktemp -d -t xraru); export HOME=$RARUHOME; '$*'; rm -rf $RARUHOME'
+# autocutsel optional if you want cut and paste through F8 menu.
+env -i PATH=$PATH DISPLAY=:$DISP raru /bin/sh -c 'RARUHOME=$(mktemp -d -t xraru); export HOME=$RARUHOME; autocutsel -fork; '$*'; rm -rf $RARUHOME'
 
 cleanup

@@ -1,4 +1,4 @@
-DESTDIR=/usr/local/bin/
+DESTDIR=/usr/local/bin
 
 all:
 	cc raru.c -o raru

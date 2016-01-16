@@ -14,7 +14,7 @@ Good ways to thwart this:
 
 So, `raru`. A user account doesn't need to have an `/etc/passwd` or an `/etc/shadow` entry to be used. You can pick random UIDs.
 
-One interesting behavior: If you `setuid()` in a folder tree of `/700/755`, you can poke around in `.`, even if you could never get there normally. `raru` works around this with `chdir("/var/empty")`
+One interesting behavior: If you `setuid()` in a folder tree of `/700/755`, you can poke around in `.`, even if you could never get there normally. `raru` will work with local paths if it has explict access to the current working directory. If it does not, it changes its directory to `/`.
 
 `raru` wraps your command and arguments. Unfortunately, it has to be setuid, so there's that. But, it sets a random UID and GID (both to the same) and runs the program. So you can't do `raru ls .`, because it just things `.` is `/var/empty`. But you can do, `raru ls $PWD`, which should fail if you're somewhere under `$HOME` and `$HOME` is set to `700`.
 
@@ -46,6 +46,8 @@ Usage:
 
 `xraru` only sets PATH and HOME environment variables. HOME is set to a temporary directory that should be cleaned up afterwards. Cleanup is buggy (best to kill with ctrl+c, not X'ing out of Chrome). Only one VNC connection is allowed, so one compromised can't spy on the others, hopefully.
 
+If you have `autocutsel` installed, you can press F8 in vncviewer to pull or push copy buffers. If you're not sure of which buffers in X, play with `xclip`.
+
 ### Potential use examples
 
 1. `xraru chrome`
@@ -60,6 +62,7 @@ Usage:
 
 * /bin/sh
 * tightvnc
+* Optional: `autocutsel` (Allows copy/paste through F8 menu in vncviewer. Not a permanently linked or extremely convenient clipboard)
 
 ## Buidling and installing
 
@@ -74,7 +77,7 @@ These are probably far more than listed. However, at least be aware of the follo
 1. You probably want to `alias raru='env -i PATH=$PATH raru'`
 2. `raru`, to work, is setuid.
 3. If `raru` is not setuid, it may not error and silently give you a false sense of security. So run `raru whoami` just to be sure.
-4. `raru ls .` does not work.
+4. `raru ls .` does not work if 'everyone' does not have access to `.`.
 
 ## License
 
