@@ -2,7 +2,7 @@
 
 Does it concern you if your browser can read your SSH keys? Do you think that on most personal systems, a user account is equally valuable as root?
 
-You can talk about secure coding practices all day long. Ultimately, your applications probably have holes, your system probably has holes, and your kernel probably has holes. For the most part, the problems get progressively more dangerous the further you get down the stack, but they start with the user account. If you run two processes as one user and one of them is hacked, it can generally run amuk and do whatever it wants to to the other process.
+You can talk about secure coding practices all day long. Ultimately, your applications probably have holes, your system probably has holes, and your kernel probably has holes. For the most part, the problems get progressively more dangerous the further you get down the stack, but they start with the user account. If you run two processes as one user and one of them is hacked, it can generally run amok and do whatever it wants to to the other process.
 
 Good ways to thwart this:
 
