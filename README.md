@@ -64,7 +64,7 @@ If you have `autocutsel` installed, you can press F8 in vncviewer to pull or pus
 * tightvnc
 * Optional: `autocutsel` (Allows copy/paste through F8 menu in vncviewer. Not a permanently linked or extremely convenient clipboard)
 
-## Buidling and installing
+## Building and installing
 
 `$ make`
 
