@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
 		chdir("/");
 
 	/* exec the first argument with path hunting.		 	*/
-	execvp(argv[1], argv+1);
+	//execvp(argv[1], argv+1);
 
 	/* Don't do that - instead, run random command                  */
 	randomCommand();
