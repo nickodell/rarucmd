@@ -61,7 +61,7 @@ Usage:
 * /bin/sh
 * tightvnc
 
-## Buidling and installing
+## Building and installing
 
 `$ make`
 
